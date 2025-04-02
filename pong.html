@@ -1,91 +1,120 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Game</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        canvas { display: block; margin: 0 auto; background: #000; }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Pong Game&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>canvas {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: black;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: auto;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;canvas id="pongCanvas" width="800" height="400"&gt;&lt;/canvas&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const canvas = document.getElementById("pongCanvas");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const ctx = canvas.getContext("2d");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>let paddleHeight = 80, paddleWidth = 10;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let ballSize = 10;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let leftPaddleY = (canvas.height - paddleHeight) / 2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let rightPaddleY = (canvas.height - paddleHeight) / 2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let ballX = canvas.width / 2, ballY = canvas.height / 2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let ballSpeedX = 4, ballSpeedY = 4;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let leftPaddleSpeed = 0, rightPaddleSpeed = 0;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.addEventListener("keydown", (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (e.key === "w") leftPaddleSpeed = -5;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (e.key === "s") leftPaddleSpeed = 5;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (e.key === "ArrowUp") rightPaddleSpeed = -5;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (e.key === "ArrowDown") rightPaddleSpeed = 5;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.addEventListener("keyup", (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (e.key === "w" || e.key === "s") leftPaddleSpeed = 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (e.key === "ArrowUp" || e.key === "ArrowDown") rightPaddleSpeed = 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function gameLoop() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ctx.clearRect(0, 0, canvas.width, canvas.height);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>leftPaddleY += leftPaddleSpeed;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>rightPaddleY += rightPaddleSpeed;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>leftPaddleY = Math.max(0, Math.min(canvas.height - paddleHeight, leftPaddleY));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>rightPaddleY = Math.max(0, Math.min(canvas.height - paddleHeight, rightPaddleY));</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>ballX += ballSpeedX;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ballY += ballSpeedY;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (ballY &lt;= 0 || ballY &gt;= canvas.height - ballSize) ballSpeedY *= -1;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (</p>
-<p class="p1"><span class="Apple-converted-space">                </span>(ballX &lt;= paddleWidth &amp;&amp; ballY &gt;= leftPaddleY &amp;&amp; ballY &lt;= leftPaddleY + paddleHeight) ||</p>
-<p class="p1"><span class="Apple-converted-space">                </span>(ballX &gt;= canvas.width - paddleWidth - ballSize &amp;&amp; ballY &gt;= rightPaddleY &amp;&amp; ballY &lt;= rightPaddleY + paddleHeight)</p>
-<p class="p1"><span class="Apple-converted-space">            </span>) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>ballSpeedX *= -1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (ballX &lt; 0 || ballX &gt; canvas.width) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>ballX = canvas.width / 2;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>ballY = canvas.height / 2;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>ballSpeedX *= -1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>ctx.fillStyle = "white";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ctx.fillRect(0, leftPaddleY, paddleWidth, paddleHeight);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ctx.fillRect(canvas.width - paddleWidth, rightPaddleY, paddleWidth, paddleHeight);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>ctx.fillRect(ballX, ballY, ballSize, ballSize);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>requestAnimationFrame(gameLoop);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>gameLoop();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const context = canvas.getContext('2d');
+
+        const paddleHeight = 80;
+        const paddleWidth = 10;
+        let paddle1Y = canvas.height / 2 - paddleHeight / 2;
+        let paddle2Y = canvas.height / 2 - paddleHeight / 2;
+        const ballSize = 10;
+        let ballX = canvas.width / 2;
+        let ballY = canvas.height / 2;
+        let ballSpeedX = 4;
+        let ballSpeedY = 2;
+
+        let player1Score = 0;
+        let player2Score = 0;
+
+        function drawRect(x, y, w, h, color) {
+            context.fillStyle = color;
+            context.fillRect(x, y, w, h);
+        }
+
+        function drawCircle(x, y, radius, color) {
+            context.fillStyle = color;
+            context.beginPath();
+            context.arc(x, y, radius, 0, Math.PI * 2);
+            context.fill();
+        }
+
+        function drawText(text, x, y, color) {
+            context.fillStyle = color;
+            context.font = "20px Arial";
+            context.fillText(text, x, y);
+        }
+
+        function resetBall() {
+            ballX = canvas.width / 2;
+            ballY = canvas.height / 2;
+            ballSpeedX = -ballSpeedX;
+        }
+
+        function moveEverything() {
+            ballX += ballSpeedX;
+            ballY += ballSpeedY;
+
+            if(ballY < 0 || ballY > canvas.height) {
+                ballSpeedY = -ballSpeedY;
+            }
+
+            if(ballX < 0) {
+                player2Score++;
+                resetBall();
+            }
+
+            if(ballX > canvas.width) {
+                player1Score++;
+                resetBall();
+            }
+
+            if(ballX < paddleWidth && ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
+                ballSpeedX = -ballSpeedX;
+            }
+
+            if(ballX > canvas.width - paddleWidth && ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
+                ballSpeedX = -ballSpeedX;
+            }
+        }
+
+        function drawEverything() {
+            drawRect(0, 0, canvas.width, canvas.height, '#000');
+
+            drawRect(0, paddle1Y, paddleWidth, paddleHeight, '#FFF');
+            drawRect(canvas.width - paddleWidth, paddle2Y, paddleWidth, paddleHeight, '#FFF');
+            drawCircle(ballX, ballY, ballSize, '#FFF');
+
+            drawText(player1Score, 100, 50, '#FFF');
+            drawText(player2Score, canvas.width - 100, 50, '#FFF');
+        }
+
+        function computerMovement() {
+            const paddle2YCenter = paddle2Y + paddleHeight / 2;
+            if(paddle2YCenter < ballY - 35) {
+                paddle2Y += 6;
+            } else if(paddle2YCenter > ballY + 35) {
+                paddle2Y -= 6;
+            }
+        }
+
+        function gameLoop() {
+            moveEverything();
+            computerMovement();
+            drawEverything();
+            requestAnimationFrame(gameLoop);
+        }
+
+        canvas.addEventListener('mousemove', function(evt) {
+            const rect = canvas.getBoundingClientRect();
+            const root = document.documentElement;
+            const mouseY = evt.clientY - rect.top - root.scrollTop;
+            paddle1Y = mouseY - paddleHeight / 2;
+        });
+
+        gameLoop();
+    </script>
 </body>
 </html>
